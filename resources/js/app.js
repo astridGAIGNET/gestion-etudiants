@@ -7,6 +7,7 @@ import Quill from 'quill';
 
 // Composants Alpine
 import autoSave from './alpine/autoSave';
+import tomSelect from './alpine/tomSelect';
 import tomSelectAutoSave from './alpine/tomSelectAutoSave';
 import quill from './alpine/quill';
 import quillAutoSave from './alpine/quillAutoSave';
@@ -23,6 +24,7 @@ window.axios = axios;
 // ENREGISTREMENT DES COMPOSANTS ALPINE
 // ============================================
 Alpine.data('autoSave', autoSave);
+Alpine.data('tomSelect', tomSelect);
 Alpine.data('tomSelectAutoSave', tomSelectAutoSave);
 Alpine.data('quill', quill);
 Alpine.data('quillAutoSave', quillAutoSave);

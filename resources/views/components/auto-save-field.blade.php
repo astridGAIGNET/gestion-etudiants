@@ -44,10 +44,12 @@
             </div>
         </div>
     @elseif($isQuill)
-        <div class="quill-container position-relative" x-data="quillAutoSave({ editorId: '{{ $fieldId }}-editor', fieldName: '{{ $name }}', height: {{ $height }} })">
-            <div id="{{ $fieldId }}-editor"></div>
-            <div class="position-absolute top-0 end-0 mt-2 me-2" style="pointer-events: none; z-index: 10;" x-show="hasStatus('{{ $name }}')">
-                <i x-bind:class="getIconClass('{{ $name }}') + ' fs-5'"></i>
+        <div x-show="!loading">
+            <div class="quill-container position-relative" x-data="quillAutoSave({ editorId: @js($fieldId . '-editor'), fieldName: @js($name) })">
+                <div id="{{ $fieldId }}-editor"></div>
+                <div class="position-absolute top-0 end-0 mt-2 me-2" style="pointer-events: none; z-index: 10;" x-show="hasStatus(@js($name))">
+                    <i x-bind:class="getIconClass(@js($name)) + ' fs-5'"></i>
+                </div>
             </div>
         </div>
     @elseif($isTextarea)

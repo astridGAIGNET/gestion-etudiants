@@ -35,26 +35,17 @@ Route::middleware([
     })->name('dashboard');
 
     // Gestion des étudiants (Admin + Formateur)
-    Route::resource('students', AdminStudentController::class);
-    // pour l'auto-save
-    Route::get('students/{student}/data', [AdminStudentController::class, 'getData']);
-    Route::post('students/{student}/auto-save', [AdminStudentController::class, 'autoSave']);
+    Route::resourceAutoSave('students', AdminStudentController::class);
 
     // Gestion des classes (Admin uniquement)
-    Route::resource('classes', ClasseController::class)->parameter('classes','classe');
-    // pour l'auto-save
-    Route::get('classes/{classe}/data', [ClasseController::class, 'getData']);
-    Route::post('classes/{classe}/auto-save', [ClasseController::class, 'autoSave']);
+    Route::resourceAutoSave('classes', ClasseController::class, [
+        'parameters' => ['classes' => 'classe']
+    ]);
 
     // Gestion des formateurs (Admin uniquement)
-    Route::resource('formateurs', FormateurController::class);
-    // pour l'auto-save
-    Route::get('formateurs/{formateur}/data', [FormateurController::class, 'getData']);
-    Route::post('formateurs/{formateur}/auto-save', [FormateurController::class, 'autoSave']);
+    Route::resourceAutoSave('formateurs', FormateurController::class);
 
     // Gestion des lieux (Admin uniquement)
-    Route::resource('places', PlaceController::class);
-    // pour l'auto-save
-    Route::get('places/{place}/data', [PlaceController::class, 'getData']);
-    Route::post('places/{place}/auto-save', [PlaceController::class, 'autoSave']);
+    Route::resourceAutoSave('places', PlaceController::class);
+
 });

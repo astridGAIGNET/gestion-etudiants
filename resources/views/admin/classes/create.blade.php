@@ -31,7 +31,7 @@
                         <x-quill
                             name="description"
                             label="Description"
-                            :height="250"
+                            :height="200"
                         />
 
                         <x-tom-select

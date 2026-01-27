@@ -28,7 +28,7 @@ class ClasseController extends Controller
         }
 
         $formateurs = User::where('role', 'formateur')->get();
-        $places = Place::all();
+        $places = Place::orderBy('name')->get();
         return view('admin.classes.create', compact('formateurs', 'places'));
     }
 

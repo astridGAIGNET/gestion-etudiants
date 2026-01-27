@@ -58,7 +58,7 @@ class ClasseController extends Controller
         }
 
         $formateurs = User::where('role', 'formateur')->get();
-        $places = Place::all();
+        $places = Place::orderBy('name')->get();
         return view('admin.classes.edit', compact('classe', 'formateurs', 'places'));
     }
 
@@ -100,7 +100,7 @@ class ClasseController extends Controller
     {
         return response()->json([
             'success' => true,
-            'classe' => [
+            'data' => [
                 'name' => $classe->name ?? '',
                 'description' => $classe->description ?? '',
                 'formateur_id' => $classe->formateur_id ?? '',
@@ -133,7 +133,7 @@ class ClasseController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Sauvegardé ✓'
+            'message' => 'Sauvegardé'
         ]);
     }
 }

@@ -20,16 +20,8 @@
                 endpoint: '/admin/students',
                 fields: ['firstname', 'lastname', 'email', 'birthdate', 'classe_id']
             })">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header">
                     <h2><i class="bi bi-pencil-square"></i> Modifier l'étudiant</h2>
-
-                    {{--
-                        x-show : Affiche l'élément SI la condition est vraie
-                        C'est comme un if() en JavaScript
-                    --}}
-                    <span x-show="status === 'saving'" class="badge bg-warning">Sauvegarde...</span>
-                    <span x-show="status === 'saved'" class="badge bg-success">Sauvegardé ✓</span>
-                    <span x-show="status === 'error'" class="badge bg-danger" x-text="errorMessage"></span>
                 </div>
 
                 <div class="card-body">
@@ -50,72 +42,43 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-3">
-                            <label class="form-label">Prénom *</label>
-                            {{--
-                                x-model="form.firstname" :
-                                - Affiche form.firstname dans l'input
-                                - Quand tu tapes, met à jour form.firstname automatiquement
+                        {{-- UTILISATION DU COMPOSANT auto-save --}}
+                        <x-auto-save-field
+                            name="firstname"
+                            label="Prénom"
+                            :required="true"
+                        />
 
-                                @input.debounce.500ms="save()" :
-                                - Quand tu tapes, attend 500ms
-                                - Si tu continues à taper, réinitialise le compteur
-                                - Après 500ms sans taper, appelle save()
-                            --}}
-                            <input type="text"
-                                   class="form-control"
-                                   name="firstname"
-                                   x-model="form.firstname"
-                                   @input.debounce.750ms="save()"
-                                   required>
-                        </div>
+                        <x-auto-save-field
+                            name="lastname"
+                            label="Nom"
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label class="form-label">Nom *</label>
-                            <input type="text"
-                                   class="form-control"
-                                   name="lastname"
-                                   x-model="form.lastname"
-                                   @input.debounce.750ms="save()"
-                                   required>
-                        </div>
+                        <x-auto-save-field
+                            name="email"
+                            type="email"
+                            label="Email"
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label class="form-label">Email *</label>
-                            <input type="email"
-                                   class="form-control"
-                                   name="email"
-                                   x-model="form.email"
-                                   @input.debounce.750ms="save()"
-                                   required>
-                        </div>
+                        <x-auto-save-field
+                            name="birthdate"
+                            type="date"
+                            label="Date de naissance"
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label class="form-label">Date de naissance *</label>
-                            {{--
-                                @change au lieu de @input car pour les dates
-                                on veut sauver quand la date est complète
-                            --}}
-                            <input type="date"
-                                   class="form-control"
-                                   name="birthdate"
-                                   x-model="form.birthdate"
-                                   @change="save()"
-                                   required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Classe</label>
-                            <select class="form-select"
-                                    name="classe_id"
-                                    x-model="form.classe_id"
-                                    @change="save()">
-                                <option value="">-- Sélectionner une classe --</option>
-                                @foreach($classes as $classe)
-                                    <option value="{{ $classe->id }}">{{ $classe->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <x-auto-save-field
+                            name="classe_id"
+                            label="Classe"
+                            type="tom-select"
+                            :options="$classes"
+                            optionValue="id"
+                            optionLabel="name"
+                            placeholder="Rechercher une classe..."
+                            :required="true"
+                        />
 
                         <div class="d-flex justify-content-between">
                             <p> <i class="bi bi-info-circle"></i> La mise à jour se fait automatiquement</p>

@@ -10,32 +10,44 @@
                 </a>
             </div>
 
-            <div class="card">
+            <div class="card" x-data="{
+                ...autoSave({
+                    id: {{ $formateur->id }},
+                    endpoint: '/admin/formateurs',
+                    fields: ['name', 'email']
+                }),
+            }">
                 <div class="card-header">
                     <h2><i class="bi bi-pencil-square"></i> Modifier le formateur</h2>
                 </div>
+
                 <div class="card-body">
-                    <form action="{{ route('admin.formateurs.update', $formateur) }}" method="POST">
+                    <div x-show="loading" class="text-center py-4">
+                        <div class="spinner-border"></div>
+                    </div>
+
+                    <form x-show="!loading"
+                          action="{{ route('admin.formateurs.update', $formateur) }}"
+                          method="POST"
+                          @submit.prevent="$el.submit()">
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nom complet *</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                   id="name" name="name" value="{{ old('name', $formateur->name) }}" required>
-                            @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        {{-- UTILISATION DU COMPOSANT auto-save --}}
+                        <x-auto-save-field
+                            name="name"
+                            label="Nom complet"
+                            :required="true"
+                            placeholder="Entrez le nom complet"
+                        />
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email *</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                   id="email" name="email" value="{{ old('email', $formateur->email) }}" required>
-                            @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-auto-save-field
+                            name="email"
+                            label="Adresse email"
+                            type="email"
+                            :required="true"
+                            placeholder="exemple@email.com"
+                        />
 
                         <hr class="my-4">
 

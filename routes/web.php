@@ -48,7 +48,13 @@ Route::middleware([
 
     // Gestion des formateurs (Admin uniquement)
     Route::resource('formateurs', FormateurController::class);
+    // pour l'auto-save
+    Route::get('formateurs/{formateur}/data', [FormateurController::class, 'getData']);
+    Route::post('formateurs/{formateur}/auto-save', [FormateurController::class, 'autoSave']);
 
     // Gestion des lieux (Admin uniquement)
     Route::resource('places', PlaceController::class);
+    // pour l'auto-save
+    Route::get('places/{place}/data', [PlaceController::class, 'getData']);
+    Route::post('places/{place}/auto-save', [PlaceController::class, 'autoSave']);
 });

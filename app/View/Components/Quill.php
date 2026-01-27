@@ -9,16 +9,26 @@ class Quill extends Component
 {
     public string $id;
     public string $model;
+    public string $name;
+    public string $label;
     public int $height;
+    public string $value;
 
     public function __construct(
-        string $id = 'editor',
+        string $id = '',
         string $model = '',
-        int $height = 300
+        string $name = '',
+        string $label = '',
+        int $height = 300,
+        string $value = ''
     ) {
-        $this->id = $id;
+        // Si name est fourni mais pas id, utilise name comme id
+        $this->id = $id ?: ($name ?: 'editor');
         $this->model = $model;
+        $this->name = $name ?: $this->id;
+        $this->label = $label;
         $this->height = $height;
+        $this->value = $value;
     }
 
     public function render(): View

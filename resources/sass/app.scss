@@ -10,6 +10,8 @@ $font-family-sans-serif: 'Nunito', sans-serif;
 // Import Bootstrap
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'tom-select/dist/css/tom-select.bootstrap5.css';
+@import 'quill/dist/quill.snow.css';
 
 // ========================================
 // Styles globaux
@@ -246,17 +248,32 @@ main {
     }
 
     // Quill en mode sombre
-    .ql-toolbar {
-        background-color: #2d3238;
-        border-color: #495057;
-    }
+    [data-bs-theme="dark"] {
+        .ql-toolbar {
+            background-color: #2d3238;
+            border-color: #495057;
 
-    .ql-container {
-        border-color: #495057;
-        background-color: #212529;
-    }
+            // Icônes de la toolbar en clair
+            .ql-stroke {
+                stroke: #e0e0e0;
+            }
 
-    .ql-editor {
-        color: #e0e0e0;
+            .ql-fill {
+                fill: #e0e0e0;
+            }
+
+            .ql-picker-label {
+                color: #e0e0e0;
+            }
+        }
+
+        .ql-container {
+            border-color: #495057;
+            background-color: #212529;
+        }
+
+        .ql-editor {
+            color: #e0e0e0;
+        }
     }
 }

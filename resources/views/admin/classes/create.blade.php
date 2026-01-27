@@ -28,49 +28,25 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror"
-                                      id="description" name="description" rows="3"
-                                      placeholder="Description optionnelle">{{ old('description') }}</textarea>
-                            @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-quill
+                            name="description"
+                            label="Description"
+                            :height="200"
+                        />
 
-                        <div class="mb-3">
-                            <label for="formateur_id" class="form-label">Formateur responsable *</label>
-                            <select class="form-select @error('formateur_id') is-invalid @enderror"
-                                    id="formateur_id" name="formateur_id" required>
-                                <option value="">-- Sélectionner un formateur --</option>
-                                @foreach($formateurs as $formateur)
-                                    <option value="{{ $formateur->id }}"
-                                        {{ old('formateur_id') == $formateur->id ? 'selected' : '' }}>
-                                        {{ $formateur->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('formateur_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-tom-select
+                            name="formateur_id"
+                            label="Formateur"
+                            :options="$formateurs"
+                            :selected="$classes->formateur_id ?? null"
+                        />
 
-                        <div class="mb-3">
-                            <label for="place_id" class="form-label">Lieu de formation *</label>
-                            <select class="form-select @error('place_id') is-invalid @enderror"
-                                    id="place_id" name="place_id" required>
-                                <option value="">-- Sélectionner un lieu de formation --</option>
-                                @foreach($places as $place)
-                                    <option value="{{ $place->id }}"
-                                        {{ old('place_id') == $place->id ? 'selected' : '' }}>
-                                        {{ $place->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('place_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-tom-select
+                            name="place_id"
+                            label="Lieu de formation"
+                            :options="$places"
+                            :selected="$classes->place_id ?? null"
+                        />
 
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('admin.classes.index') }}" class="btn btn-secondary">Annuler</a>

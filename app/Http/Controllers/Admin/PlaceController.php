@@ -78,4 +78,42 @@ class PlaceController extends Controller
 
         return redirect()->route('admin.places.index')->with('success', 'Lieu supprimé avec succès');
     }
+
+    /**
+     * Récupère les données de la classe en JSON
+     */
+    public function getData(Place $place)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'name' => $place->name ?? '',
+            ]
+        ]);
+    }
+
+    /**
+     * Sauvegarde automatique
+     */
+    public function autoSave(Request $request, Place $place)
+    {
+        if (!Auth::user()->isAdmin()) {
+            abort(403);
+        }
+
+        // Validation (nullable car on envoie champ par champ)
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        // Mise à jour (on enlève les valeurs null)
+        $place->update(array_filter($validated, function($value) {
+            return $value !== null;
+        }));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sauvegardé'
+        ]);
+    }
 }

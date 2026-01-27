@@ -103,4 +103,43 @@ class FormateurController extends Controller
         return redirect()->route('admin.formateurs.index')
             ->with('success', 'Formateur supprimé avec succès.');
     }
+
+    /**
+     * Récupère les données de l'étudiant en JSON
+     */
+    public function getData(User $formateur)
+    {
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'name' => $formateur->name ?? '',
+                'email' => $formateur->email ?? '',
+            ]
+        ]);
+    }
+
+    /**
+     * Sauvegarde automatique
+     */
+    public function autoSave(Request $request, User $formateur)
+    {
+        if (!Auth::user()->isAdmin() || $formateur->role !== 'formateur') {
+            abort(403);
+        }
+        // Validation (nullable car on envoie champ par champ)
+        $validated = $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:users,email,' . $formateur->id,
+        ]);
+
+        $formateur->update(array_filter($validated, function($value)
+        {
+            return $value !== null;
+        }));
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Sauvegardé'
+        ]);
+    }
 }

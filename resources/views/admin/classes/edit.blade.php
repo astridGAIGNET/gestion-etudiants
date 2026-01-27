@@ -16,11 +16,8 @@
                 fields: ['name', 'description', 'formateur_id', 'place_id']
             })"
             @quill-change="save()">
-                <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="card-header">
                     <h2><i class="bi bi-pencil-square"></i> Modifier la classe</h2>
-                    <span x-show="status === 'saving'" class="badge bg-warning">Sauvegarde...</span>
-                    <span x-show="status === 'saved'" class="badge bg-success">Sauvegardé ✓</span>
-                    <span x-show="status === 'error'" class="badge bg-danger" x-text="errorMessage"></span>
                 </div>
 
                 <div class="card-body">
@@ -34,59 +31,42 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-3">
-                            <label class="form-label">Nom de la classe *</label>
-                            <input type="text"
-                                   class="form-control @error('name') is-invalid @enderror"
-                                   name="name"
-                                   x-model="form.name"
-                                   @input.debounce.750ms="save()" required>
-                            @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        {{-- UTILISATION DU COMPOSANT auto-save --}}
+                        <x-auto-save-field
+                            name="name"
+                            label="Nom de la classe"
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <x-quill id="description" model="form.description" :height="300"></x-quill>
-                            @error('description')
-                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-auto-save-field
+                            name="description"
+                            label="Description"
+                            type="quill"
+                            :height="400"
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label for="formateur_id" class="form-label">Formateur responsable *</label>
-                            <select class="form-select @error('formateur_id') is-invalid @enderror"
-                                    name="formateur_id"
-                                    x-model="form.formateur_id" @change="save()" required>
-                                <option value="">-- Sélectionner un formateur --</option>
-                                @foreach($formateurs as $formateur)
-                                    <option value="{{ $formateur->id }}">
-                                        {{ $formateur->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('formateur_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-auto-save-field
+                            name="formateur_id"
+                            label="Formateur responsable"
+                            type="tom-select"
+                            :options="$formateurs"
+                            optionValue="id"
+                            optionLabel="name"
+                            placeholder="Rechercher un formateur..."
+                            :required="true"
+                        />
 
-                        <div class="mb-3">
-                            <label for="place_id" class="form-label">Lieu de formation *</label>
-                            <select class="form-select @error('place_id') is-invalid @enderror"
-                                    name="place_id"
-                                    x-model="form.place_id" @change="save()" required>
-                                <option value="">-- Sélectionner un lieu de formation --</option>
-                                @foreach($places as $place)
-                                    <option value="{{ $place->id }}">
-                                        {{ $place->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('place_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-auto-save-field
+                            name="place_id"
+                            label="Lieu de formation"
+                            type="tom-select"
+                            :options="$places"
+                            optionValue="id"
+                            optionLabel="name"
+                            placeholder="-- Sélectionner un lieu de formation --"
+                            :required="true"
+                        />
 
                         <div class="d-flex justify-content-between">
                             <p> <i class="bi bi-info-circle"></i> La mise à jour se fait automatiquement</p>

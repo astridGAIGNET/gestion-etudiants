@@ -11,4 +11,14 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    // POUR EVITER LES WARNINGS DANS LA CONSOLE A CAUSE DE BOOTSTRAP ________________________________
+    css: {
+        preprocessorOptions: {
+            scss: {
+                quietDeps: true,
+                silenceDeprecations: ['import', 'global-builtin', 'color-functions']
+            }
+        }
+    }
+    //_________________________________________________________________________________________________
 });

@@ -54,21 +54,12 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="classe_id" class="form-label">Classe</label>
-                            <select class="form-select @error('classe_id') is-invalid @enderror"
-                                    id="classe_id" name="classe_id">
-                                <option value="">Aucune classe</option>
-                                @foreach($classes as $classe)
-                                    <option value="{{ $classe->id }}" {{ old('classe_id') == $classe->id ? 'selected' : '' }}>
-                                        {{ $classe->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('classe_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <x-tom-select
+                            name="classe_id"
+                            label="Classe"
+                            :options="$classes"
+                            :selected="$classe->id ?? null"
+                        />
 
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('admin.students.index') }}" class="btn btn-secondary">Annuler</a>

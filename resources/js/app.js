@@ -11,6 +11,7 @@ import tomSelect from './alpine/tomSelect';
 import tomSelectAutoSave from './alpine/tomSelectAutoSave';
 import quill from './alpine/quill';
 import quillAutoSave from './alpine/quillAutoSave';
+import listJs from './alpine/listJs';
 
 // ============================================
 // CONFIGURATION GLOBALE
@@ -28,6 +29,7 @@ Alpine.data('tomSelect', tomSelect);
 Alpine.data('tomSelectAutoSave', tomSelectAutoSave);
 Alpine.data('quill', quill);
 Alpine.data('quillAutoSave', quillAutoSave);
+Alpine.data('listJs', listJs);
 
 
 // Rendre Alpine disponible globalement

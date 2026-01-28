@@ -15,7 +15,7 @@
                 endpoint: '/admin/classes',
                 fields: ['name', 'description', 'formateur_id', 'place_id']
             })"
-            @quill-change="save()">
+                 @quill-change="save()">
                 <div class="card-header">
                     <h2><i class="bi bi-pencil-square"></i> Modifier la classe</h2>
                 </div>

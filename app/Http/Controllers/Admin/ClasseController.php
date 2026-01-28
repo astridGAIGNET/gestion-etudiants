@@ -17,7 +17,7 @@ class ClasseController extends Controller
             abort(403);
         }
 
-        $classes = Classe::with(['formateur', 'students'])->latest()->paginate(15);
+        $classes = Classe::with(['formateur', 'students'])->latest()->get();
         return view('admin.classes.index', compact('classes'));
     }
 

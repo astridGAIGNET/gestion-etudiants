@@ -21,7 +21,7 @@ class FormateurController extends Controller
             ->withCount('classes')
             ->with('places')
             ->latest()
-            ->paginate(15);
+            ->get();
 
         return view('admin.formateurs.index', compact('formateurs'));
     }

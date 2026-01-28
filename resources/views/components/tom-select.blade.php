@@ -30,12 +30,12 @@
         allowClear: {{ $allowClear ? 'true' : 'false' }}
     })">
         <select
-            id="{{ $fieldId }}"
-            name="{{ $name }}{{ $multiple ? '[]' : '' }}"
-            class="form-select"
-            @if($multiple) multiple @endif
-            @if($required) required @endif
-            {{ $attributes }}>
+                id="{{ $fieldId }}"
+                name="{{ $name }}{{ $multiple ? '[]' : '' }}"
+                class="form-select"
+                @if($multiple) multiple @endif
+                @if($required) required @endif
+                {{ $attributes }}>
 
             @if(!$multiple && !$required)
                 <option value="">{{ $placeholder }}</option>

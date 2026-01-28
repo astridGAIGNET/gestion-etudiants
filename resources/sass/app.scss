@@ -134,6 +134,41 @@ main {
 }
 
 // ========================================
+// List.js - Tables interactives
+// ========================================
+
+// En-têtes triables
+thead th {
+    user-select: none;
+    transition: background-color 0.2s;
+
+    &[style*="cursor: pointer"] {
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .bi {
+        font-size: 0.875rem;
+        margin-left: 0.25rem;
+    }
+}
+
+// Pagination List.js
+.pagination {
+    .page-item {
+        &.active .page-link {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+        }
+
+        &.disabled .page-link {
+            cursor: not-allowed;
+        }
+    }
+}
+
+// ========================================
 // Boutons
 // ========================================
 .btn {
@@ -274,6 +309,13 @@ main {
 
         .ql-editor {
             color: #e0e0e0;
+        }
+    }
+
+    // List en Mode sombre
+    [data-bs-theme="dark"] {
+        thead th[style*="cursor: pointer"]:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
     }
 }

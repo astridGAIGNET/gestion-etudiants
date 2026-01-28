@@ -16,13 +16,13 @@ class StudentController extends Controller
 
         if ($user->isAdmin()) {
             // Charge la classe ET le lieu
-            $students = Student::with('classe.place')->latest()->paginate(15);
+            $students = Student::with('classe.place')->latest()->get();
         } elseif ($user->isFormateur()) {
             $classIds = $user->classes->pluck('id');
             $students = Student::whereIn('classe_id', $classIds)
                 ->with('classe.place') // -> la classe ET son lieu
                 ->latest()
-                ->paginate(15);
+                ->get();
         } else {
             abort(403);
         }

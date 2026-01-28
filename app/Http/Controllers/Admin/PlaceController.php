@@ -15,7 +15,7 @@ class PlaceController extends Controller
             abort(403);
         }
 
-        $places = Place::with(['classes'])->latest()->paginate(15);
+        $places = Place::with(['classes'])->latest()->get();
         return view('admin.places.index', compact('places'));
     }
 
